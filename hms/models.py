@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.utils import timezone
+import uuid
 
 class Patient(models.Model):
     national_id = models.CharField(max_length=20, unique=True, validators=[RegexValidator(r'^\d{1,10}$', message='Only digits are allowed')])
@@ -135,7 +137,7 @@ class MedicalRecord(models.Model):
 class Billing(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='bills')
     appointment = models.ForeignKey(Appointment, on_delete=models.SET_NULL, null=True, blank=True, related_name='bills')
-    bill_number = models.CharField(max_length=20, unique=True)
+    bill_number = models.CharField(max_length=20, unique=True, editable=False)  # Auto-generated bill number
     DESCRIPTION_CHOICES = [
         ('Consultation Fee', 'Consultation Fee'),
         ('Lab Tests', 'Lab Tests'),
@@ -166,3 +168,12 @@ class Billing(models.Model):
 
     def __str__(self):
         return f"Bill #{self.bill_number} for {self.patient.first_name} {self.patient.last_name}"
+    
+    def save(self, *args, **kwargs):
+        # Generate a unique bill number if it doesn't exist
+        if not self.bill_number:
+            # Example: BILL-20231020-ABC123 (date + random UUID)
+            date_part = timezone.now().strftime('%Y%m%d')  # Current date in YYYYMMDD format
+            unique_id = uuid.uuid4().hex[:6].upper()  # Random 6-character string
+            self.bill_number = f"BILL-{date_part}-{unique_id}"
+        super().save(*args, **kwargs)
