@@ -1,0 +1,144 @@
+<!-- Sidebar -->
+<nav id="sidebar" class="bg-dark text-white">
+    <div class="sidebar-header p-3">
+        <h3 class="text-center">HIS</h3>
+        <p class="text-center text-muted">Health Information System</p>
+    </div>
+
+    <ul class="list-unstyled components">
+        <!-- Dashboard -->
+        <li class="active">
+            <a href="{% url 'dashboard' %}" class="nav-link text-white">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+            </a>
+        </li>
+
+        <!-- Patients -->
+        <li>
+            <a href="#patientsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="nav-link text-white dropdown-toggle">
+                <i class="fas fa-users me-2"></i>Patients
+            </a>
+            <ul class="collapse list-unstyled" id="patientsSubmenu">
+                <li>
+                    <a href="{% url 'patient_add' %}" class="nav-link text-white">
+                        <i class="fas fa-plus me-2"></i>Add Patient
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <i class="fas fa-list me-2"></i>View Patients
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Doctors -->
+        <li>
+            <a href="#doctorsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="nav-link text-white dropdown-toggle">
+                <i class="fas fa-user-md me-2"></i>Doctors
+            </a>
+            <ul class="collapse list-unstyled" id="doctorsSubmenu">
+                <li>
+                    <a href="{% url 'doctor_add' %}" class="nav-link text-white">
+                        <i class="fas fa-plus me-2"></i>Add Doctor
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <i class="fas fa-list me-2"></i>View Doctors
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Nurses -->
+        <li>
+            <a href="#nursesSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="nav-link text-white dropdown-toggle">
+                <i class="fas fa-user-nurse me-2"></i>Nurses
+            </a>
+            <ul class="collapse list-unstyled" id="nursesSubmenu">
+                <li>
+                    <a href="{% url 'nurse_add' %}" class="nav-link text-white">
+                        <i class="fas fa-plus me-2"></i>Add Nurse
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <i class="fas fa-list me-2"></i>View Nurses
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Appointments -->
+        <li>
+            <a href="#appointmentsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="nav-link text-white dropdown-toggle">
+                <i class="fas fa-calendar-check me-2"></i>Appointments
+            </a>
+            <ul class="collapse list-unstyled" id="appointmentsSubmenu">
+                <li>
+                    <a href="{% url 'appointment_add' %}" class="nav-link text-white">
+                        <i class="fas fa-plus me-2"></i>Add Appointment
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="nav-link text-white">
+                        <i class="fas fa-list me-2"></i>View Appointments
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Medical Records -->
+        <li>
+            <a href="#recordsSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="nav-link text-white dropdown-toggle">
+                <i class="fas fa-file-medical me-2"></i>Medical Records
+            </a>
+            <ul class="collapse list-unstyled" id="recordsSubmenu">
+                <li>
+                    <a href="{% url 'medical_add' %}" class="nav-link text-white">
+                        <i class="fas fa-plus me-2"></i>Add Record
+                    </a>
+                </li>
+                <li>
+                    <a href="" class="nav-link text-white">
+                        <i class="fas fa-list me-2"></i>View Records
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Billing -->
+        <li>
+            <a href="#billingSubmenu" data-bs-toggle="collapse" aria-expanded="false" class="nav-link text-white dropdown-toggle">
+                <i class="fas fa-file-invoice-dollar me-2"></i>Billing
+            </a>
+            <ul class="collapse list-unstyled" id="billingSubmenu">
+                <li>
+                    <a href="{% url 'bill_add' %}" class="nav-link text-white">
+                        <i class="fas fa-plus me-2"></i>Add Bill
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link text-white">
+                        <i class="fas fa-list me-2"></i>View Bills
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Reports -->
+        <li>
+            <a href="#" class="nav-link text-white">
+                <i class="fas fa-chart-bar me-2"></i>Reports
+            </a>
+        </li>
+
+        <!-- Settings -->
+        <li>
+            <a href="#" class="nav-link text-white">
+                <i class="fas fa-cog me-2"></i>Settings
+            </a>
+        </li>
+    </ul>
+</nav>

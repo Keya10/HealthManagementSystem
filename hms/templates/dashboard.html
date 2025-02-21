@@ -1,0 +1,200 @@
+{% extends 'base.html' %}  <!-- Extend your base template -->
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+    </div>
+
+    <!-- Row 1: Key Metrics -->
+    <div class="row">
+        <!-- Total Patients Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Patients
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_patients }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Appointments Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Total Appointments
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_appointments }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Revenue Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Revenue
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">KES {{ total_revenue }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Bills Card -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pending Bills
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_bills }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 2: Charts -->
+    <div class="row">
+        <!-- Patient Registrations Chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Patient Registrations</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="patientRegistrationsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Appointments Chart -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-success">Appointments</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="appointmentsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Row 3: Billing Chart -->
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-info">Billing Overview</h6>
+                </div>
+                <div class="card-body">
+                    <canvas id="billingChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Scripts -->
+<script>
+    // Patient Registrations Chart
+    const patientRegistrationsChart = new Chart(document.getElementById('patientRegistrationsChart'), {
+        type: 'line',
+        data: {
+            labels: {{ patient_registration_labels|safe }},
+            datasets: [{
+                label: 'Patient Registrations',
+                data: {{ patient_registration_data|safe }},
+                backgroundColor: 'rgba(78, 115, 223, 0.05)',
+                borderColor: 'rgba(78, 115, 223, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Appointments Chart
+    const appointmentsChart = new Chart(document.getElementById('appointmentsChart'), {
+        type: 'bar',
+        data: {
+            labels: {{ appointment_labels|safe }},
+            datasets: [{
+                label: 'Appointments',
+                data: {{ appointment_data|safe }},
+                backgroundColor: 'rgba(28, 200, 138, 0.5)',
+                borderColor: 'rgba(28, 200, 138, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Billing Chart
+    const billingChart = new Chart(document.getElementById('billingChart'), {
+        type: 'pie',
+        data: {
+            labels: {{ billing_labels|safe }},
+            datasets: [{
+                label: 'Billing',
+                data: {{ billing_data|safe }},
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(75, 192, 192, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 2
+            }]
+        }
+    });
+</script>
+{% endblock %}

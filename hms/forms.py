@@ -22,10 +22,10 @@ class PatientForm(forms.ModelForm):
 
         }
 
-        national_id = forms.CharField(max_length=10, required=False)
-        widgets = {
-            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-        }
+        def __init__(self, *args, **kwargs):
+            super(PatientForm, self).__init__(*args, **kwargs)
+            self.fields['national_id'].required = False
+
 
 class DoctorForm(forms.ModelForm):
     class Meta:
