@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Information System</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+
+    <style>
+        .navbar {
+            background-color: #007bff; /* Primary blue color */
+        }
+        .navbar-brand, .nav-link {
+            color: #fff !important; /* White text */
+        }
+        .nav-link:hover {
+            color: #2b8ef1 !important; /* Light gray on hover */
+        }
+        .navbar-toggler {
+            border-color: #fff; /* White border for toggler */
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+
+        .no-top-border {
+           border-top: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <!-- Brand/Logo -->
+            <a class="navbar-brand" href="{% url 'home' %}">Health Information System</a>
+
+            <!-- Toggler Button for Mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!--ADD PATIENT-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'patient_add' %}">
+                            <i class="fas fa-user-md me-1"></i> Add Patient
+                        </a>
+                    </li>
+                    <!-- Add Doctor -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'doctor_add' %}">
+                            <i class="fas fa-user-md me-1"></i> Add Doctor
+                        </a>
+                    </li>
+
+                    <!-- Add Nurse -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'nurse_add' %}">
+                            <i class="fas fa-user-nurse me-1"></i> Add Nurse
+                        </a>
+                    </li>
+
+                    <!-- Add Appointment -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'appointment_add' %}">
+                            <i class="fas fa-calendar-check me-1"></i> Add Appointment
+                        </a>
+                    </li>
+
+                    <!-- Add Medical Record -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'medical_add' %}">
+                            <i class="fas fa-file-medical me-1"></i> Add Medical Record
+                        </a>
+                    </li>
+
+                    <!-- Add Billing -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bill_add' %}">
+                            <i class="fas fa-file-invoice-dollar me-1"></i> Add Billing
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Bootstrap 5 JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Font Awesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
+
+          {% block content %}
+        
+          {% endblock %}
+          
+
+        </div>
+
+      </div>
+       
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  </body>
+</html>

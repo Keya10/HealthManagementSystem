@@ -92,7 +92,7 @@ class Nurse(models.Model):
         validators=[RegexValidator(regex='^\+?1?\d{9,15}$', message='Phone number must be in the format: +254712345678.')]
     )
     email = models.EmailField(unique=True)
-    address = models.TextField(blank=True, null=True)
+    address = models.CharField( max_length=100,blank=True, null=True)
     department = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
