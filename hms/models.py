@@ -177,3 +177,6 @@ class Billing(models.Model):
             unique_id = uuid.uuid4().hex[:6].upper()  # Random 6-character string
             self.bill_number = f"BILL-{date_part}-{unique_id}"
         super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.bill_number

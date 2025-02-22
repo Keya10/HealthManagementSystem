@@ -2,5 +2,35 @@
 {% include 'dashboard.html' %}
 
 {% block content %}
+<div class="container">
+    <h2>Patient List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Bill No</th>
+                <th>Patient</th>
+                <th>Appointment</th>
+                <th>Amount</th>
+                <th>Payment Status</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bill in bills %}
+            <tr>
+                <td>{{ bill.bill_number }}</td>
+                <td>{{ bill.patient }}</td>
+                <td>{{ bill.appointment }}</td>
+                <td>{{ bill.amount }}</td>  <!-- Display choice label -->
+                <td>{{ payment_status }}</td>
+                <td>{{ bill.mpesa_transaction_date }}</td>
+                <td><a href="#" class="btn btn-success btn-sm">Edit</a></td>
+                <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 
 {% endblock %} 

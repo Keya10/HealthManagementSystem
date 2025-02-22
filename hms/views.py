@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404,  render, redirect
 from django.http import HttpResponse
 from django.db.models import Sum, Count
 from datetime import datetime, timedelta
@@ -62,7 +62,7 @@ def patient(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('patient_list')
+            return redirect('patient_add')
     else:
         form = PatientForm()
     return render(request, 'patient_add.html', {'form': form})
@@ -72,7 +72,25 @@ def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'patient_list.html', {'patients': patients})
 
+#update a patient
+def patient_update(request, id):
+    patient = get_object_or_404(Patient, pk=id)
+    if request.method == 'POST':
+        form = PatientForm(request.POST, instance=patient)
+        if form.is_valid():
+            form.save()
+            return redirect('patient_list')
+    else:
+        form = PatientForm(instance=patient)
+    return render(request, 'patient_update.html', {'form': form})
 
+
+
+#delete a patient
+def delete_patient(request, id):
+    patient = get_object_or_404(Patient, pk=id)
+    patient.delete()
+    return redirect('patient_list')
 
 def doctor(request):
     if request.method == 'POST':
@@ -84,6 +102,11 @@ def doctor(request):
         form = DoctorForm()
     return render(request, 'doctor_add.html', {'form': form})
 
+#returning a list of doctors
+def doctor_list(request):
+    doctors = Doctor.objects.all()
+    return render(request, 'doctor_list.html', {'doctors': doctors})
+
 def nurse(request):
     if request.method == 'POST':
         form = NurseForm(request.POST)
@@ -93,6 +116,11 @@ def nurse(request):
     else:
         form = NurseForm()
     return render(request, 'nurse_add.html', {'form': form})
+
+#returning a list of nurses
+def nurse_list(request):
+    nurses = Nurse.objects.all()
+    return render(request, 'nurse_list.html', {'nurses': nurses})
 
 def appointment(request):
     if request.method == 'POST':
@@ -104,6 +132,12 @@ def appointment(request):
         form = AppointmentForm()
     return render(request, 'appointment_add.html', {'form': form})
 
+#returning a list of appointments
+def appointment_list(request):
+    appointments = Appointment.objects.all()
+    return render(request, 'appointment_list.html', {'appointments': appointments})
+
+
 def medical(request):
     if request.method == 'POST':
         form = MedicalRecordForm(request.POST)
@@ -114,6 +148,11 @@ def medical(request):
         form = MedicalRecordForm()
     return render(request, 'medical_add.html', {'form': form})
 
+#returning a list of medical records
+def medical_list(request):
+    medical_records = MedicalRecord.objects.all()
+    return render(request, 'medical_list.html', {'medical_records':medical_records})
+
 def bill(request):
     if request.method == 'POST':
         form = BillingForm(request.POST)
@@ -123,3 +162,8 @@ def bill(request):
     else:
         form = BillingForm()
     return render(request, 'bill_add.html', {'form': form})
+
+#returning a list of bills
+def bill_list(request):
+    bills = Billing.objects.all()
+    return render(request, 'bill_list.html', {'bills': bills})

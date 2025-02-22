@@ -2,7 +2,7 @@
 <nav id="sidebar" class="bg-dark text-white">
     <div class="sidebar-header p-3">
         <h3 class="text-center">HIS</h3>
-        <p class="text-center text-muted">Health Information System</p>
+        
     </div>
 
     <ul class="list-unstyled components">
@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{% url 'patient_list' %}" class="nav-link text-white">
                         <i class="fas fa-list me-2"></i>View Patients
                     </a>
                 </li>
@@ -101,7 +101,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="" class="nav-link text-white">
+                    <a href="{% url 'medical_list' %}" class="nav-link text-white">
                         <i class="fas fa-list me-2"></i>View Records
                     </a>
                 </li>
@@ -120,7 +120,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link text-white">
+                    <a href="{% url 'bill_list' %}" class="nav-link text-white">
                         <i class="fas fa-list me-2"></i>View Bills
                     </a>
                 </li>

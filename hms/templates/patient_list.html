@@ -25,6 +25,17 @@
                 <td>{{ patient.get_gender_display }}</td>  <!-- Display choice label -->
                 <td>{{ patient.phone_number }}</td>
                 <td>{{ patient.email }}</td>
+                <td><a href="{% url 'patient_update' patient.id %}" class="btn btn-success btn-sm">Edit</a></td>
+                <td>  <form action="{% url 'delete_patient' patient.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this patient?');">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+                </td>
+                
             </tr>
             {% endfor %}
         </tbody>
@@ -32,3 +43,9 @@
 </div>
 
 {% endblock %} 
+
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this record?');
+    }
+</script>
