@@ -21,6 +21,12 @@ class PatientForm(forms.ModelForm):
             'emergency_contact_phone': 'EMERGENCY CONTACT PHONE',
 
         }
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
+            #'blood_group': forms.Select(choices=[('A+', 'A+'), ('A-', 'A-'), ('B+', 'B+'), ('B-', 'B-'), ('AB+', 'AB+'), ('AB-', 'AB-'), ('O+', 'O+'), ('O-', 'O-')]),
+        }
+
+
 
         def __init__(self, *args, **kwargs):
             super(PatientForm, self).__init__(*args, **kwargs)
@@ -80,6 +86,10 @@ class AppointmentForm(forms.ModelForm):
             'time': 'TIME',
             'status': 'STATUS',
         }
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
+        }
 
 class MedicalRecordForm(forms.ModelForm):
     class Meta:
@@ -95,6 +105,7 @@ class MedicalRecordForm(forms.ModelForm):
             'lab_results': 'LAB RESULTS',
             'notes': 'NOTES',
         }
+        
 
 class BillingForm(forms.ModelForm):
     class Meta:
@@ -110,4 +121,7 @@ class BillingForm(forms.ModelForm):
             'payment_method': 'PAYMENT METHOD',
             'mpesa_transaction_code': 'MPESA CODE',
             'mpesa_transaction_date': 'MPESA DATE',
+        }
+        widgets = {
+            'mpesa_transaction_date': forms.DateInput(attrs={'type': 'date'}),
         }

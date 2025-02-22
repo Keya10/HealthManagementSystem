@@ -67,6 +67,13 @@ def patient(request):
         form = PatientForm()
     return render(request, 'patient_add.html', {'form': form})
 
+#returning a lidt of patients
+def patient_list(request):
+    patients = Patient.objects.all()
+    return render(request, 'patient_list.html', {'patients': patients})
+
+
+
 def doctor(request):
     if request.method == 'POST':
         form = DoctorForm(request.POST)
