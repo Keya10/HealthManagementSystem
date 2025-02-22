@@ -107,6 +107,24 @@ def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, 'doctor_list.html', {'doctors': doctors})
 
+#update a doctor
+def doctor_update(request, id):
+    doctor = get_object_or_404(Doctor, pk=id)
+    if request.method == 'POST':
+        form = DoctorForm(request.POST, instance=doctor)
+        if form.is_valid():
+            form.save()
+            return redirect('doctor_list')
+    else:
+        form = DoctorForm(instance=doctor)
+    return render(request, 'doctor_update.html', {'form': form})
+
+#delete a doctor
+def delete_doctor(request, id):
+    doctor = get_object_or_404(Doctor, pk=id)
+    doctor.delete()
+    return redirect('doctor_list')
+
 def nurse(request):
     if request.method == 'POST':
         form = NurseForm(request.POST)

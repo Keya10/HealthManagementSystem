@@ -3,4 +3,43 @@
 
 {% block content %}
 
+<div class="container">
+    <h2>Doctor List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>D.O.B</th>
+                <th>Specialization</th>
+                <th>Lisence No:</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr>
+                <td>{{ doctor.first_name }}</td>
+                <td>{{ doctor.last_name }}</td>
+                <td>{{ doctor.date_of_birth }}</td>
+                <td>{{ doctor.specialization }}</td>  <!-- Display choice label -->
+                <td>{{ doctor.license_number }}</td>
+                <td>{{ doctor.department }}</td>
+                <td><a href="{% url 'doctor_update' doctor.id %}" class="btn btn-success btn-sm">Edit</a></td>
+                <td>  <form action="{% url 'delete_doctor' doctor.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this patient?');">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %} 
