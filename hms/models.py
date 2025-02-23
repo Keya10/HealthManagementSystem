@@ -3,8 +3,27 @@ from django.core.validators import RegexValidator
 from django.utils import timezone
 import uuid
 
+class Department(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class Specialization(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True, null=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='specializations')  # Make it non-nullable
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
 class Patient(models.Model):
-    national_id = models.CharField(max_length=20, unique=True,blank=True, null=True, validators=[RegexValidator(r'^\d{1,10}$', message='Only digits are allowed')])
+    national_id = models.CharField(max_length=20, unique=True, blank=True, null=True, validators=[RegexValidator(r'^\d{1,10}$', message='Only digits are allowed')])
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     date_of_birth = models.DateField()
@@ -58,19 +77,19 @@ class Doctor(models.Model):
     phone_number = models.CharField(max_length=15, validators=[RegexValidator(regex='^\+?1?\d{9,15}$', message='Phone number must be in the format: +254712345678.')])
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=100)
-    specialization = models.CharField(max_length=100)
+    specialization = models.ForeignKey(Specialization, on_delete=models.CASCADE, related_name='doctors')
     license_number = models.CharField(
         max_length=20,
         unique=True,
         validators=[RegexValidator(regex='^[A-Za-z0-9]{5,20}$', message='License number must be alphanumeric and 5-20 characters long.')]
     )
     years_of_experience = models.PositiveIntegerField()
-    department = models.CharField(max_length=100)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='doctors')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Dr. {self.first_name} {self.last_name} ({self.specialization})"
+        return f"Dr. {self.first_name} {self.last_name} ({self.specialization.name})"
 
 class Nurse(models.Model):
     first_name = models.CharField(max_length=100)
@@ -92,8 +111,8 @@ class Nurse(models.Model):
         validators=[RegexValidator(regex='^\+?1?\d{9,15}$', message='Phone number must be in the format: +254712345678.')]
     )
     email = models.EmailField(unique=True)
-    address = models.CharField( max_length=100,blank=True, null=True)
-    department = models.CharField(max_length=100)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='nurses')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -181,27 +200,6 @@ class Billing(models.Model):
     def __str__(self):
         return self.bill_number
 
-#creating depatments in the hospital
-class Department(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-    
-#creating model for nurses and doctors specialization
-class Specialization(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    description = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-    
-#creating model for lab tests
 class LabTest(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
@@ -211,4 +209,3 @@ class LabTest(models.Model):
 
     def __str__(self):
         return self.name
-    
