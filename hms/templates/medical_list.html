@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container">
-    <h2>Medical List</h2>
+    <h2>Medical Records</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -19,23 +19,22 @@
             </tr>
         </thead>
         <tbody>
-            {% for record in medical_records %}
+            {% for medical in medical_records %}
             <tr>
-                <td>{{ record.patient }}</td>
-                <td>{{ record.doctor }}</td>
-                <td>{{ record.diagnosis }}</td>
-                <td>{{ record.symptoms }}</td>
-                <td>{{ record.treatment }}</td>
-                <td>{{ record.prescription }}</td>
-                <td>{{ record.lab_results }}</td>
-                <td>{{ record.notes }}</td>
-                <td><a href="#" class="btn btn-success btn-sm">Edit</a></td>
-                <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td> 
-                
-             </tr>
-             {% endfor %}
+                <td>{{ medical.patient }}</td>
+                <td>{{ medical.doctor }}</td>
+                <td>{{ medical.diagnosis }}</td>
+                <td>{{ medical.symptoms }}</td>
+                <td>{{ medical.treatment }}</td>
+                <td>{{ medical.prescription }}</td>
+                <td>{{ medical.lab_results }}</td>
+                <td>{{ medical.notes }}</td>
+                <td><a href="{% url 'medical_update' medical.id %}" class="btn btn-success btn-sm">Edit</a></td>
+                <td><a href="{% url 'delete_medical' medical.id %}" class="btn btn-danger btn-sm">Delete</a></td> 
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
 
-{% endblock %} 
+{% endblock %}

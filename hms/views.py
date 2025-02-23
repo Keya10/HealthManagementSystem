@@ -98,6 +98,8 @@ def doctor(request):
         if form.is_valid():
             form.save()
             return redirect('doctor_list')
+        else:
+            print(form.errors)
     else:
         form = DoctorForm()
     return render(request, 'doctor_add.html', {'form': form})
@@ -140,6 +142,25 @@ def nurse_list(request):
     nurses = Nurse.objects.all()
     return render(request, 'nurse_list.html', {'nurses': nurses})
 
+#updating nurses
+def nurse_update(request, id):
+    nurse = get_object_or_404(Nurse, pk=id)
+    if request.method == 'POST':
+        form = NurseForm(request.POST, instance=nurse)
+        if form.is_valid():
+            form.save()
+            return redirect('nurse_list')
+    else:
+        form = NurseForm(instance=nurse)
+    return render(request, 'nurse_update.html', {'form': form})
+
+# Deleting Nurses
+def delete_nurse(request, id):
+    doctor = get_object_or_404(Nurse, pk=id)
+    doctor.delete()
+    return redirect('nurse_list')
+
+
 def appointment(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
@@ -155,6 +176,28 @@ def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'appointment_list.html', {'appointments': appointments})
 
+#updating appointments
+def appointment_update(request, id):
+    appointment = get_object_or_404(Appointment, pk=id)
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, instance=appointment)
+        if form.is_valid():
+            form.save()
+            return redirect('appointment_list')
+    else:
+        form = AppointmentForm(instance=appointment)
+    return render(request, 'appointment_update.html', {'form': form})
+
+
+
+#deleting appointments
+
+def delete_appointment(request):
+    appointment = get_object_or_404(Appointment, pk=id)
+    appointment.delete()
+    return redirect('appointment_list')
+
+
 
 def medical(request):
     if request.method == 'POST':
@@ -169,7 +212,29 @@ def medical(request):
 #returning a list of medical records
 def medical_list(request):
     medical_records = MedicalRecord.objects.all()
-    return render(request, 'medical_list.html', {'medical_records':medical_records})
+    return render(request, 'medical_list.html', {'medical_records': medical_records})
+
+#updating medical records
+
+def medical_update(request, id):
+    medical_record = get_object_or_404(MedicalRecord, pk=id)
+    if request.method == 'POST':
+        form = MedicalRecordForm(request.POST, instance=medical_record)
+        if form.is_valid():
+            form.save()
+            return redirect('medical_list')
+    else:
+        form = MedicalRecordForm(instance=medical_record)
+    return render(request, 'medical_update.html', {'form': form})
+
+#deleting medical records
+def delete_medical(request, id):
+    medical_record = get_object_or_404(MedicalRecord, pk=id)
+    medical_record.delete()
+    return redirect('medical_list')
+
+    
+
 
 def bill(request):
     if request.method == 'POST':

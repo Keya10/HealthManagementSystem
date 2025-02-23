@@ -3,4 +3,50 @@
 
 {% block content %}
 
+<div class="container">
+    <h2>Nurse List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Specialization</th>
+                <th>Lisence No:</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for nurse in nurses %}
+            <tr>
+                <td>{{ nurse.first_name }}</td>
+                <td>{{ nurse.last_name }}</td>
+                <td>{{ nurse.date_of_birth }}</td>
+                <td>{{ nurse.get_gender_display }}</td>  <!-- Display choice label -->
+                <td>{{ nurse.phone_number }}</td>
+                <td>{{ nurse.email }}</td>
+                <td><a href="{% url 'nurse_update' nurse.id %}" class="btn btn-success btn-sm">Edit</a></td>
+                <td>  <form action="{% url 'delete_nurse' nurse.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this patient?');">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock %} 
+
+<script>
+    function confirmDelete() {
+        return confirm('Are you sure you want to delete this record?');
+    }
+</script>

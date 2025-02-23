@@ -105,6 +105,16 @@ class MedicalRecordForm(forms.ModelForm):
             'lab_results': 'LAB RESULTS',
             'notes': 'NOTES',
         }
+    def __init__(self, *args, **kwargs):
+        super(MedicalRecordForm, self).__init__(*args, **kwargs)
+        self.fields['doctor'].required = False
+        self.fields['symptoms'].required = False
+        self.fields['treatment'].required = False
+        self.fields['prescription'].required = False
+        self.fields['lab_results'].required = False
+        self.fields['notes'].required = False
+        
+    
         
 
 class BillingForm(forms.ModelForm):

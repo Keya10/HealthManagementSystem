@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card border-0">
                 <div class="card-body">
-                    <h5 class="card-title">Add Medical Record</h5>
+                    <h5 class="card-title">Appointment</h5>
                     <form method="POST">
                         {% csrf_token %}
                         <div class="row">
@@ -21,35 +21,29 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                {{ form.symptoms|as_crispy_field }}
+                                {{ form.nurse|as_crispy_field }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                {{ form.treatment|as_crispy_field }}
+                                {{ form.date|as_crispy_field }}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                {{ form.prescription|as_crispy_field }}
+                                {{ form.time|as_crispy_field }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                {{ form.lab_results|as_crispy_field }}
+                                {{ form.status|as_crispy_field }}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                {{ form.notes|as_crispy_field }}
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                {{ form.diagnosis|as_crispy_field }}
-                            </div>
-                        </div>
+                        
                         <!-- Add more fields as needed in similar rows -->
-                        <button type="submit" class="btn btn-primary mt-3">Add Record</button>
+                        <button type="submit" class="btn btn-primary mt-3">Update Appointment</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 {% endblock %}

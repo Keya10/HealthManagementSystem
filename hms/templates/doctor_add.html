@@ -49,6 +49,19 @@
                                 {{ form.specialization|as_crispy_field }}
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.license_number|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.years_of_experience|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.department|as_crispy_field }}
+                            </div>
+                        </div>
                         <!-- Add more fields as needed in similar rows -->
                         <button type="submit" class="btn btn-primary mt-3">Save Doctor</button>
                     </form>
