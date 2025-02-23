@@ -29,11 +29,17 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                {{ form.payment_status|as_crispy_field }}
+                                {{ form.due_date|as_crispy_field }}
                             </div>
                             <div class="col-md-6 mb-3">
                                 {{ form.payment_method|as_crispy_field }}
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.payment_status|as_crispy_field }}
+                            </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">

@@ -127,11 +127,14 @@ class BillingForm(forms.ModelForm):
             'bill_number': 'BILL NUMBER',
             'description': 'DESCRIPTION',
             'amount': 'AMOUNT',
+            'due_date': 'DUE DATE',
             'payment_status': 'PAYMENT STATUS',
             'payment_method': 'PAYMENT METHOD',
             'mpesa_transaction_code': 'MPESA CODE',
             'mpesa_transaction_date': 'MPESA DATE',
         }
         widgets = {
+            'due_date': forms.DateInput(attrs={'type': 'date'}),
+            'payment_status': forms.Select(choices=[('Paid', 'Paid', 'U'), ('Pending', 'Pending')]),
             'mpesa_transaction_date': forms.DateInput(attrs={'type': 'date'}),
         }

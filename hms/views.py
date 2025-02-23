@@ -242,6 +242,8 @@ def bill(request):
         if form.is_valid():
             form.save()
             return redirect('bill_list')
+        else:
+            print(form.errors)
     else:
         form = BillingForm()
     return render(request, 'bill_add.html', {'form': form})
