@@ -136,7 +136,7 @@ class Appointment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Appointment for {self.patient} with Dr. {self.doctor} on {self.date} at {self.time}"
+        return f"Appointment for {self.patient} {self.doctor} on {self.date} at {self.time}"
 
 class MedicalRecord(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='medical_records')

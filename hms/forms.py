@@ -65,6 +65,7 @@ class NurseForm(forms.ModelForm):
             'date_of_birth': 'DATE OF BIRTH',
             'gender':   'GENDER',
             'license_number': 'LICENSE NUMBER',
+            'specialization': 'SPECIALIZATION',
             'years_of_experience': 'YEARS OF EXPERIENCE',
             'phone_number': 'PHONE NUMBER',
             'email': 'EMAIL',

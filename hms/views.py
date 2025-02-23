@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404,  render, redirect
+from django.contrib import messages
 from django.http import HttpResponse
 from django.db.models import Sum, Count
 from datetime import datetime, timedelta
@@ -62,6 +63,7 @@ def patient(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Patient added successfully')
             return redirect('patient_add')
     else:
         form = PatientForm()
@@ -242,8 +244,6 @@ def bill(request):
         if form.is_valid():
             form.save()
             return redirect('bill_list')
-        else:
-            print(form.errors)
     else:
         form = BillingForm()
     return render(request, 'bill_add.html', {'form': form})
