@@ -1,7 +1,19 @@
 from django.contrib import admin
-from .models import Patient, Doctor, Appointment, Nurse, MedicalRecord, Billing
+from .models import Patient, Doctor, Appointment, Nurse, MedicalRecord, Billing, Department, Specialization
 
 # Register your models here.
+@admin.register(Department)
+class DepartmentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = ('name', 'description')
+    list_filter = ('name',)
+
+@admin.register(Specialization)
+class SpecializationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description')
+    search_fields = ('name', 'description')
+    list_filter = ('name',)
+    
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
