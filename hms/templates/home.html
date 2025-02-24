@@ -27,13 +27,13 @@
             color: #bdc3c7 !important; /* Lighter text color on hover */
         }
         .hero-section {
-            background: url('../static/images/bg.jpg') no-repeat center center/cover;
-            height: 100vh;
+            height: 100vh; /* Full viewport height */
             display: flex;
             align-items: center;
             justify-content: center;
             color: rgb(0, 157, 255);
             text-align: center;
+            background: url('{% static 'hms/images/bg.jpg' %}') no-repeat center center/cover; /* Background image */
         }
         .hero-section h1 {
             font-size: 3.5rem;
@@ -110,7 +110,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center"> <img src="{% static 'hms/images/bg.jpg' %}" alt="bg.jpg">
+    <section class="hero-section text-center">
         <div class="container">
             <h1>Welcome to HealthSync</h1>
             <p>Your trusted partner in health management. Streamline your health records, appointments, and more.</p>
@@ -220,16 +220,16 @@
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
     <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-    (function(){
-    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-    s1.async=true;
-    s1.src='https://embed.tawk.to/67bc2738efaa65190a2d293a/1ikrfsbbv';
-    s1.charset='UTF-8';
-    s1.setAttribute('crossorigin','*');
-    s0.parentNode.insertBefore(s1,s0);
-    })();
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/67bc2738efaa65190a2d293a/1ikrfsbbv';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
     </script>
     <!--End of Tawk.to Script-->
 </body>
