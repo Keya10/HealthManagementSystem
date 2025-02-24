@@ -64,6 +64,8 @@ def patient(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Patient added successfully')
+        else:
+            messages.error(request, 'Error Ivalid data. Please check the form')
             return redirect('patient_add')
     else:
         form = PatientForm()
@@ -81,6 +83,7 @@ def patient_update(request, id):
         form = PatientForm(request.POST, instance=patient)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Patient updated successfully')
             return redirect('patient_list')
     else:
         form = PatientForm(instance=patient)
@@ -92,16 +95,17 @@ def patient_update(request, id):
 def delete_patient(request, id):
     patient = get_object_or_404(Patient, pk=id)
     patient.delete()
+    messages.success(request, 'Patient deleted successfully')
     return redirect('patient_list')
+
 
 def doctor(request):
     if request.method == 'POST':
         form = DoctorForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Doctor added successfully')
             return redirect('doctor_list')
-        else:
-            print(form.errors)
     else:
         form = DoctorForm()
     return render(request, 'doctor_add.html', {'form': form})
@@ -118,6 +122,7 @@ def doctor_update(request, id):
         form = DoctorForm(request.POST, instance=doctor)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Doctor updated successfully')
             return redirect('doctor_list')
     else:
         form = DoctorForm(instance=doctor)
@@ -127,6 +132,7 @@ def doctor_update(request, id):
 def delete_doctor(request, id):
     doctor = get_object_or_404(Doctor, pk=id)
     doctor.delete()
+    messages.success(request, 'Doctor deleted successfully')
     return redirect('doctor_list')
 
 def nurse(request):
@@ -134,6 +140,7 @@ def nurse(request):
         form = NurseForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Nurse added successfully')
             return redirect('nurse_list')
     else:
         form = NurseForm()
@@ -151,6 +158,7 @@ def nurse_update(request, id):
         form = NurseForm(request.POST, instance=nurse)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Nurse updated successfully')
             return redirect('nurse_list')
     else:
         form = NurseForm(instance=nurse)
@@ -160,6 +168,7 @@ def nurse_update(request, id):
 def delete_nurse(request, id):
     doctor = get_object_or_404(Nurse, pk=id)
     doctor.delete()
+    messages.success(request, 'Nurse deleted successfully')
     return redirect('nurse_list')
 
 
@@ -168,6 +177,7 @@ def appointment(request):
         form = AppointmentForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Appointment Booked successfully')
             return redirect('appointment_list')
     else:
         form = AppointmentForm()
@@ -185,6 +195,7 @@ def appointment_update(request, id):
         form = AppointmentForm(request.POST, instance=appointment)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Appointment updated successfully')
             return redirect('appointment_list')
     else:
         form = AppointmentForm(instance=appointment)
@@ -206,6 +217,7 @@ def medical(request):
         form = MedicalRecordForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Medical Record added successfully')
             return redirect('medical_list')
     else:
         form = MedicalRecordForm()
@@ -224,6 +236,7 @@ def medical_update(request, id):
         form = MedicalRecordForm(request.POST, instance=medical_record)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Medical Record updated successfully')
             return redirect('medical_list')
     else:
         form = MedicalRecordForm(instance=medical_record)
@@ -233,6 +246,7 @@ def medical_update(request, id):
 def delete_medical(request, id):
     medical_record = get_object_or_404(MedicalRecord, pk=id)
     medical_record.delete()
+    messages.success(request, 'Medical Record deleted successfully')
     return redirect('medical_list')
 
     
@@ -243,6 +257,7 @@ def bill(request):
         form = BillingForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Bill added successfully')
             return redirect('bill_list')
     else:
         form = BillingForm()
