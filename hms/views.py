@@ -8,7 +8,8 @@ from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalR
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
 
 #login views
-def login(request):
+#login views
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
@@ -18,11 +19,14 @@ def login(request):
             if user is not None:
                 auth.login(request, user)
                 messages.success(request, 'You are now logged in')
-                return redirect('dashboard')
+                return redirect('dashboard.html')  # Redirect to the dashboard or any other page
             else:
-                form = LoginForm()
                 messages.error(request, 'Invalid credentials')
-                return render(request, 'login.html', {'form': form})
+        else:
+            messages.error(request, 'Invalid form data')
+    else:
+        form = LoginForm()
+    return render(request, 'login.html', {'form': form})
       
 #Registration
 def register(request):
@@ -31,7 +35,7 @@ def register(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'You are now registered')
-            return redirect('login')
+            return redirect('login.html', {'form': form})
     else:
         form = RegistrationForm()
     return render(request, 'register.html', {'form': form})

@@ -1,9 +1,12 @@
 from django.conf import settings
-from django.conf.urls.static import static
+from django.contrib.auth import views 
 from django.urls import path, include
-from . import views
+from . import views 
+from .views import login
 
 urlpatterns = [ 
+    path("login", views.login_view, name="login"),
+    path("register", views.register, name="register"),
     path("", views.home, name="home"),
     path("dashboard", views.dashboard, name="dashboard"),
     path("patient", views.patient, name="patient_add"),
@@ -46,6 +49,3 @@ urlpatterns = [
 
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
