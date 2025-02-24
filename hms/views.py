@@ -1,10 +1,40 @@
 from django.shortcuts import get_object_or_404,  render, redirect
-from django.contrib import messages
+from django.contrib import messages, auth
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.db.models import Sum, Count
 from datetime import datetime, timedelta
-from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
+from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm, LoginForm, RegistrationForm
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
+
+#login views
+def login(request):
+    if request.method == 'POST':
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                auth.login(request, user)
+                messages.success(request, 'You are now logged in')
+                return redirect('dashboard')
+            else:
+                form = LoginForm()
+                messages.error(request, 'Invalid credentials')
+                return render(request, 'login.html', {'form': form})
+      
+#Registration
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You are now registered')
+            return redirect('login')
+    else:
+        form = RegistrationForm()
+    return render(request, 'register.html', {'form': form})
 
 # Create your views here.
 def dashboard(request):
