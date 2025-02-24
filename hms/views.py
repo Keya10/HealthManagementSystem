@@ -1,61 +1,19 @@
-from django.shortcuts import get_object_or_404,  render, redirect
-from django.contrib import messages, auth
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
-from django.db.models import Sum, Count
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib import messages
+from django.db.models import Sum
 from datetime import datetime, timedelta
-from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm, LoginForm, RegistrationForm
+from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
 
-#login views
-#login views
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                auth.login(request, user)
-                messages.success(request, 'You are now logged in')
-                return redirect('dashboard.html')  # Redirect to the dashboard or any other page
-            else:
-                messages.error(request, 'Invalid credentials')
-        else:
-            messages.error(request, 'Invalid form data')
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
-      
-#Registration
-def register(request):
-    if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'You are now registered')
-            return redirect('login.html', {'form': form})
-    else:
-        form = RegistrationForm()
-    return render(request, 'register.html', {'form': form})
-
-# Create your views here.
+# Dashboard view
 def dashboard(request):
-    # Total patients
     total_patients = Patient.objects.count()
-    # Total doctors
     total_doctors = Doctor.objects.count()
-    # Total nurses
     total_nurses = Nurse.objects.count()
-    # Total appointments
     total_appointments = Appointment.objects.count()
-    # Total revenue
     total_revenue = Billing.objects.aggregate(total=Sum('amount'))['total'] or 0
-    # Pending bills
     pending_bills = Billing.objects.filter(payment_status='Pending').count()
 
-    # Patients registered in the last 7 days
     patients_registration_data = []
     patients_registration_labels = []
     for i in range(6, -1, -1):
@@ -64,11 +22,9 @@ def dashboard(request):
         patients_registration_data.append(count)
         patients_registration_labels.append(date.strftime('%a'))
 
-    # Appointment data (example, you need to define how to get this data)
     appointment_data = [10, 20, 30, 40, 50, 60, 70]  # Replace with actual data
     appointment_labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']  # Replace with actual labels
 
-    # Billing overview
     billing_labels = ['Paid', 'Pending']
     billing_data = [
         Billing.objects.filter(payment_status='Paid').count(),
@@ -98,19 +54,17 @@ def patient(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Patient added successfully')
+            return redirect('patient_list')
         else:
-            messages.error(request, 'Error Ivalid data. Please check the form')
-            return redirect('patient_add')
+            messages.error(request, 'Invalid data. Please check the form')
     else:
         form = PatientForm()
     return render(request, 'patient_add.html', {'form': form})
 
-#returning a lidt of patients
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'patient_list.html', {'patients': patients})
 
-#update a patient
 def patient_update(request, id):
     patient = get_object_or_404(Patient, pk=id)
     if request.method == 'POST':
@@ -123,15 +77,11 @@ def patient_update(request, id):
         form = PatientForm(instance=patient)
     return render(request, 'patient_update.html', {'form': form})
 
-
-
-#delete a patient
 def delete_patient(request, id):
     patient = get_object_or_404(Patient, pk=id)
     patient.delete()
     messages.success(request, 'Patient deleted successfully')
     return redirect('patient_list')
-
 
 def doctor(request):
     if request.method == 'POST':
@@ -144,12 +94,10 @@ def doctor(request):
         form = DoctorForm()
     return render(request, 'doctor_add.html', {'form': form})
 
-#returning a list of doctors
 def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, 'doctor_list.html', {'doctors': doctors})
 
-#update a doctor
 def doctor_update(request, id):
     doctor = get_object_or_404(Doctor, pk=id)
     if request.method == 'POST':
@@ -162,7 +110,6 @@ def doctor_update(request, id):
         form = DoctorForm(instance=doctor)
     return render(request, 'doctor_update.html', {'form': form})
 
-#delete a doctor
 def delete_doctor(request, id):
     doctor = get_object_or_404(Doctor, pk=id)
     doctor.delete()
@@ -180,12 +127,10 @@ def nurse(request):
         form = NurseForm()
     return render(request, 'nurse_add.html', {'form': form})
 
-#returning a list of nurses
 def nurse_list(request):
     nurses = Nurse.objects.all()
     return render(request, 'nurse_list.html', {'nurses': nurses})
 
-#updating nurses
 def nurse_update(request, id):
     nurse = get_object_or_404(Nurse, pk=id)
     if request.method == 'POST':
@@ -198,31 +143,27 @@ def nurse_update(request, id):
         form = NurseForm(instance=nurse)
     return render(request, 'nurse_update.html', {'form': form})
 
-# Deleting Nurses
 def delete_nurse(request, id):
-    doctor = get_object_or_404(Nurse, pk=id)
-    doctor.delete()
+    nurse = get_object_or_404(Nurse, pk=id)
+    nurse.delete()
     messages.success(request, 'Nurse deleted successfully')
     return redirect('nurse_list')
-
 
 def appointment(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Appointment Booked successfully')
+            messages.success(request, 'Appointment booked successfully')
             return redirect('appointment_list')
     else:
         form = AppointmentForm()
     return render(request, 'appointment_add.html', {'form': form})
 
-#returning a list of appointments
 def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'appointment_list.html', {'appointments': appointments})
 
-#updating appointments
 def appointment_update(request, id):
     appointment = get_object_or_404(Appointment, pk=id)
     if request.method == 'POST':
@@ -235,34 +176,26 @@ def appointment_update(request, id):
         form = AppointmentForm(instance=appointment)
     return render(request, 'appointment_update.html', {'form': form})
 
-
-
-#deleting appointments
-
-def delete_appointment(request):
+def delete_appointment(request, id):
     appointment = get_object_or_404(Appointment, pk=id)
     appointment.delete()
+    messages.success(request, 'Appointment deleted successfully')
     return redirect('appointment_list')
-
-
 
 def medical(request):
     if request.method == 'POST':
         form = MedicalRecordForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Medical Record added successfully')
+            messages.success(request, 'Medical record added successfully')
             return redirect('medical_list')
     else:
         form = MedicalRecordForm()
     return render(request, 'medical_add.html', {'form': form})
 
-#returning a list of medical records
 def medical_list(request):
     medical_records = MedicalRecord.objects.all()
     return render(request, 'medical_list.html', {'medical_records': medical_records})
-
-#updating medical records
 
 def medical_update(request, id):
     medical_record = get_object_or_404(MedicalRecord, pk=id)
@@ -270,21 +203,17 @@ def medical_update(request, id):
         form = MedicalRecordForm(request.POST, instance=medical_record)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Medical Record updated successfully')
+            messages.success(request, 'Medical record updated successfully')
             return redirect('medical_list')
     else:
         form = MedicalRecordForm(instance=medical_record)
     return render(request, 'medical_update.html', {'form': form})
 
-#deleting medical records
 def delete_medical(request, id):
     medical_record = get_object_or_404(MedicalRecord, pk=id)
     medical_record.delete()
-    messages.success(request, 'Medical Record deleted successfully')
+    messages.success(request, 'Medical record deleted successfully')
     return redirect('medical_list')
-
-    
-
 
 def bill(request):
     if request.method == 'POST':
@@ -297,7 +226,6 @@ def bill(request):
         form = BillingForm()
     return render(request, 'bill_add.html', {'form': form})
 
-#returning a list of bills
 def bill_list(request):
     bills = Billing.objects.all()
     return render(request, 'bill_list.html', {'bills': bills})

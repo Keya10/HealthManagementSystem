@@ -24,13 +24,13 @@ class RegistrationForm(forms.Form):
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields ='first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'email', 'address', 'blood_group', 'medical_history', 'emergency_contact_name', 'emergency_contact_phone'
-        lables = {
+        fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'email', 'address', 'blood_group', 'medical_history', 'emergency_contact_name', 'emergency_contact_phone')
+        labels = {
             'national_id': 'NATIONAL ID',
             'first_name': 'FIRST NAME',
             'last_name': 'LAST NAME',
             'date_of_birth': 'DATE OF BIRTH',
-            'gender':   'GENDER',
+            'gender': 'GENDER',
             'phone_number': 'PHONE NUMBER',
             'email': 'EMAIL',
             'address': 'ADDRESS',
@@ -38,30 +38,26 @@ class PatientForm(forms.ModelForm):
             'medical_history': 'MEDICAL HISTORY',
             'emergency_contact_name': 'EMERGENCY CONTACT NAME',
             'emergency_contact_phone': 'EMERGENCY CONTACT PHONE',
-
         }
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
-            #'blood_group': forms.Select(choices=[('A+', 'A+'), ('A-', 'A-'), ('B+', 'B+'), ('B-', 'B-'), ('AB+', 'AB+'), ('AB-', 'AB-'), ('O+', 'O+'), ('O-', 'O-')]),
         }
 
-
-
-        def __init__(self, *args, **kwargs):
-            super(PatientForm, self).__init__(*args, **kwargs)
-            self.fields['national_id'].required = False
+    def __init__(self, *args, **kwargs):
+        super(PatientForm, self).__init__(*args, **kwargs)
+        self.fields['national_id'].required = False
 
 
 class DoctorForm(forms.ModelForm):
     class Meta:
         model = Doctor
         fields = '__all__'
-        lables = {
+        labels = {
             'national_id': 'NATIONAL ID',
             'first_name': 'FIRST NAME',
             'last_name': 'LAST NAME',
             'date_of_birth': 'DATE OF BIRTH',
-            'gender':   'GENDER',
+            'gender': 'GENDER',
             'phone_number': 'PHONE NUMBER',
             'email': 'EMAIL',
             'address': 'ADDRESS',
@@ -78,11 +74,11 @@ class NurseForm(forms.ModelForm):
     class Meta:
         model = Nurse
         fields = '__all__'
-        lables = {
+        labels = {
             'first_name': 'FIRST NAME',
             'last_name': 'LAST NAME',
             'date_of_birth': 'DATE OF BIRTH',
-            'gender':   'GENDER',
+            'gender': 'GENDER',
             'license_number': 'LICENSE NUMBER',
             'specialization': 'SPECIALIZATION',
             'years_of_experience': 'YEARS OF EXPERIENCE',
@@ -94,11 +90,12 @@ class NurseForm(forms.ModelForm):
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
         }
+
 class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = '__all__'
-        lables = {
+        labels = {
             'patient': 'PATIENT',
             'doctor': 'DOCTOR',
             'nurse': 'NURSE',
@@ -115,7 +112,7 @@ class MedicalRecordForm(forms.ModelForm):
     class Meta:
         model = MedicalRecord
         fields = '__all__'
-        lables = {
+        labels = {
             'patient': 'PATIENT',
             'doctor': 'DOCTOR',
             'diagnosis': 'DIAGNOSIS',
@@ -141,7 +138,7 @@ class BillingForm(forms.ModelForm):
     class Meta:
         model = Billing
         fields = '__all__'
-        lables = {
+        labels = {
             'patient': 'PATIENT',
             'appointment': 'APPOINTMENT',
             'bill_number': 'BILL NUMBER',
@@ -155,6 +152,6 @@ class BillingForm(forms.ModelForm):
         }
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'}),
-            'payment_status': forms.Select(choices=[('Paid', 'Paid', 'U'), ('Pending', 'Pending')]),
+            'payment_status': forms.Select(choices=[('Paid', 'Paid'), ('Pending', 'Pending')]),
             'mpesa_transaction_date': forms.DateInput(attrs={'type': 'date'}),
         }
