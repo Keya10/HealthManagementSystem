@@ -5,6 +5,14 @@ from datetime import datetime, timedelta
 from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
 
+
+#login view
+def login_view(request):
+    return render(request, 'login.html')
+
+def register(request):
+    return redirect(request,'register.html')
+
 # Dashboard view
 def dashboard(request):
     total_patients = Patient.objects.count()

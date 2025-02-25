@@ -24,7 +24,7 @@ class RegistrationForm(forms.Form):
 class PatientForm(forms.ModelForm):
     class Meta:
         model = Patient
-        fields = ('first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'email', 'address', 'blood_group', 'medical_history', 'emergency_contact_name', 'emergency_contact_phone')
+        fields = ('national_id', 'first_name', 'last_name', 'date_of_birth', 'gender', 'phone_number', 'email', 'address', 'blood_group', 'medical_history', 'emergency_contact_name', 'emergency_contact_phone')
         labels = {
             'national_id': 'NATIONAL ID',
             'first_name': 'FIRST NAME',
