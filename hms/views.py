@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages
+from django.contrib import messages 
+from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Sum
 from datetime import datetime, timedelta
-from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
+from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm, RegistrationForm
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
 
 
@@ -11,7 +12,15 @@ def login_view(request):
     return render(request, 'login.html')
 
 def register(request):
-    return redirect(request,'register.html')
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UserCreationForm()
+
+    
+    return redirect(request,'registration/register.html', {'form' : form})
 
 # Dashboard view
 def dashboard(request):
