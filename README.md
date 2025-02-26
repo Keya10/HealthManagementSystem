@@ -70,10 +70,10 @@ source venv/bin/activate
  ```
  
 ## dashboard
-![dashboard](https://github.com/user-attachments/assets/415a2a03-93a4-41a8-ad98-21f64dd06345)
-
-![image1](https://github.com/user-attachments/assets/06f98041-8b61-4efb-888a-f3ed8fce0111)
-![image2](https://github.com/user-attachments/assets/b2246122-4a6a-4c01-99f1-5669d38c16c4)
+![dashboard](https://github.com/user-attachments/assets/956c8949-7aaa-4c12-8c0d-6b520c0070f1)
 
 
-![image3](https://github.com/user-attachments/assets/293b5cd8-5bc2-491f-aa15-f7fe58d624d2)
+![image1](https://github.com/user-attachments/assets/3f64f2b3-5b94-4606-b2ba-6bcdb4c105bf)
+
+![image2](https://github.com/user-attachments/assets/63c83fd7-9fb3-4de1-b19c-55c16c0117e9)
+![image3](https://github.com/user-attachments/assets/de478e73-3d8c-473a-8fd5-1645ab03ed56)
