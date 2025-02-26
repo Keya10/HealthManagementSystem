@@ -35,7 +35,7 @@ The Health Management System (HMS) is a web-based application builed usind djang
 - Deployment: Django's built-in development server (can be deployed on platforms like AWS, Heroku, etc.)
 
 ## Setup Instructions
-## Prefered Code ediditor vscode 
+## Prefered Code editor vscode 
 1. Install Python: Make sure Python is installed on your system. You can download it from python.org and follow the installation instructions.
 2. Create a Virtual Environment: It's recommended to use a virtual environment to manage dependencies for your Django project.
 ```
