@@ -58,7 +58,7 @@ source venv/bin/activate
 4. Clone and Setup Your Project:
 ```
  # https://github.com/Keya10/HEALTH-MANAGEMENT-SYSTEM.git
- cd HEALTH-MANAGEMENT-SYSTEM
+ cd HealthManagementSystem
  ```
  5. Create a Superuser
  ``` 
