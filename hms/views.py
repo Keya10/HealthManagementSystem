@@ -9,18 +9,14 @@ from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
 
 #login view
 def login_view(request):
-    return render(request, 'login.html')
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = UserCreationForm()
+    return render(request, 'registration/login.html')
 
+def authview(request):
+    form = UserCreationForm
     
-    return redirect(request,'registration/register.html', {'form' : form})
+
+    return render(request,'registration/signup.html', {"form" : form})
 
 # Dashboard view
 def dashboard(request):

@@ -2,11 +2,14 @@ from django.conf import settings
 from django.contrib.auth import views 
 from django.urls import path, include
 from . import views 
+from .views import authview
 
 
 urlpatterns = [ 
-    path("login", views.login_view, name="login"),
-    path('register/', views.register, name='register'),
+    
+    path("signup", views.authview, name="authview"),
+    path("accounts/", include("django.contrib.auth.urls")),
+    
     path("", views.home, name="home"),
     path("dashboard", views.dashboard, name="dashboard"),
     path("patient", views.patient, name="patient_add"),
