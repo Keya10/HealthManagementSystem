@@ -1,51 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-    background-color: #f8f9fa;
-}
+{% include 'main.html'%}
 
-.card {
+<!-- Add Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    background-color: #f0f2f5;
+    font-family: 'Arial', sans-serif;
+}
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 30px;
     border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
+.register-header {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #1877f2;
+    margin-bottom: 20px;
+}
+.btn-primary {
+    background-color: #1877f2;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+.btn-primary:hover {
+    background-color: #145dbf;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #1877f2;
+    text-decoration: none;
+}
+.login-link:hover {
+    text-decoration: underline;
+}
+</style>
 
-footer {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-top: 1px solid #e9ecef;
-}
-    </style>
-</head>
-<body>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card shadow-sm">
-                    <div class="card-header text-center bg-primary text-white">
-                        <h4>Register</h4>
-                    </div>
-                    <div class="card-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-primary btn-block">Register</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<div class="register-container">
+    <div class="register-header">Create a New Account</div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
         </div>
-    </div>
-    <footer class="text-center mt-5">
-        <p>&copy; </p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+    </form>
+    <a href="{% url 'login' %}" class="login-link">Log into existing account</a>
+</div>
+
+<!-- Add Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

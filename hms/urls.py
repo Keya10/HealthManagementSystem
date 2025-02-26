@@ -45,8 +45,8 @@ urlpatterns = [
 
     path("bill", views.bill, name="bill_add"),
     path("bill/list", views.bill_list, name="bill_list"),
-    path("nurse/update/<int:id>", views.nurse_update, name="nurse_update"),
-    path("nurse/delete/<int:id>", views.delete_nurse, name="delete_nurse"),
+    path("bill/update/<int:id>", views.bill_update, name="bill_update"),
+    path("bill/delete/<int:id>", views.bill_delete, name="bill_delete"),
 
     
 

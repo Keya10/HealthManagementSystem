@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Bill</h5>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.patient|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.appointment|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.description|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.amount|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.due_date|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.payment_method|as_crispy_field }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.payment_status|as_crispy_field }}
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                {{ form.mpesa_transaction_id|as_crispy_field }}
+                                
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                {{ form.mpesa_transaction_date|as_crispy_field }}
+                            </div>
+                        </div>
+                        
+                        <!-- Add more fields as needed in similar rows -->
+                        <button type="submit" class="btn btn-primary mt-3">Update Bill</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

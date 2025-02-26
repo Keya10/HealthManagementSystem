@@ -2,9 +2,9 @@
 {% include 'dashboard.html' %}
 
 {% block content %}
-<div class="container">
-    <h2>Bills</h2>
-    <table class="table table-striped">
+<div class="container mt-4">
+    <h2 class="mb-4">Bills</h2>
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th>Bill No</th>
@@ -22,10 +22,10 @@
                 <td>{{ bill.patient }}</td>
                 <td>{{ bill.appointment }}</td>
                 <td>{{ bill.amount }}</td>  <!-- Display choice label -->
-                <td>{{ payment_status }}</td>
+                <td>{{ bill.payment_status }}</td>
                 <td>{{ bill.mpesa_transaction_date }}</td>
-                <td><a href="#" class="btn btn-success btn-sm">Edit</a></td>
-                <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
+                <td><a href="{% url 'bill_update' bill.id %}" class="btn btn-success btn-sm">Edit</a></td>
+                <td><a href="{% url 'bill_delete' bill.id %}" class="btn btn-danger btn-sm">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>

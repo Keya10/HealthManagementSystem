@@ -66,9 +66,10 @@ def dashboard(request):
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def patient(request):
     if request.method == 'POST':
-        form = PatientForm(request.POST)
+        form = PatientForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'Patient added successfully')
@@ -79,14 +80,16 @@ def patient(request):
         form = PatientForm()
     return render(request, 'patient_add.html', {'form': form})
 
+@login_required
 def patient_list(request):
     patients = Patient.objects.all()
     return render(request, 'patient_list.html', {'patients': patients})
 
+@login_required
 def patient_update(request, id):
     patient = get_object_or_404(Patient, pk=id)
     if request.method == 'POST':
-        form = PatientForm(request.POST, instance=patient)
+        form = PatientForm(request.POST or None, instance=patient)
         if form.is_valid():
             form.save()
             messages.success(request, 'Patient updated successfully')
@@ -95,15 +98,17 @@ def patient_update(request, id):
         form = PatientForm(instance=patient)
     return render(request, 'patient_update.html', {'form': form})
 
+@login_required
 def delete_patient(request, id):
     patient = get_object_or_404(Patient, pk=id)
     patient.delete()
     messages.success(request, 'Patient deleted successfully')
     return redirect('patient_list')
 
+@login_required
 def doctor(request):
     if request.method == 'POST':
-        form = DoctorForm(request.POST)
+        form = DoctorForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'Doctor added successfully')
@@ -112,14 +117,16 @@ def doctor(request):
         form = DoctorForm()
     return render(request, 'doctor_add.html', {'form': form})
 
+@login_required
 def doctor_list(request):
     doctors = Doctor.objects.all()
     return render(request, 'doctor_list.html', {'doctors': doctors})
 
+@login_required
 def doctor_update(request, id):
     doctor = get_object_or_404(Doctor, pk=id)
     if request.method == 'POST':
-        form = DoctorForm(request.POST, instance=doctor)
+        form = DoctorForm(request.POST or None, instance=doctor)
         if form.is_valid():
             form.save()
             messages.success(request, 'Doctor updated successfully')
@@ -128,15 +135,17 @@ def doctor_update(request, id):
         form = DoctorForm(instance=doctor)
     return render(request, 'doctor_update.html', {'form': form})
 
+@login_required
 def delete_doctor(request, id):
     doctor = get_object_or_404(Doctor, pk=id)
     doctor.delete()
     messages.success(request, 'Doctor deleted successfully')
     return redirect('doctor_list')
 
+@login_required
 def nurse(request):
     if request.method == 'POST':
-        form = NurseForm(request.POST)
+        form = NurseForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'Nurse added successfully')
@@ -145,14 +154,16 @@ def nurse(request):
         form = NurseForm()
     return render(request, 'nurse_add.html', {'form': form})
 
+@login_required
 def nurse_list(request):
     nurses = Nurse.objects.all()
     return render(request, 'nurse_list.html', {'nurses': nurses})
 
+@login_required
 def nurse_update(request, id):
     nurse = get_object_or_404(Nurse, pk=id)
     if request.method == 'POST':
-        form = NurseForm(request.POST, instance=nurse)
+        form = NurseForm(request.POST or None, instance=nurse)
         if form.is_valid():
             form.save()
             messages.success(request, 'Nurse updated successfully')
@@ -161,15 +172,17 @@ def nurse_update(request, id):
         form = NurseForm(instance=nurse)
     return render(request, 'nurse_update.html', {'form': form})
 
+@login_required
 def delete_nurse(request, id):
     nurse = get_object_or_404(Nurse, pk=id)
     nurse.delete()
     messages.success(request, 'Nurse deleted successfully')
     return redirect('nurse_list')
 
+@login_required
 def appointment(request):
     if request.method == 'POST':
-        form = AppointmentForm(request.POST)
+        form = AppointmentForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'Appointment booked successfully')
@@ -178,14 +191,16 @@ def appointment(request):
         form = AppointmentForm()
     return render(request, 'appointment_add.html', {'form': form})
 
+@login_required
 def appointment_list(request):
     appointments = Appointment.objects.all()
     return render(request, 'appointment_list.html', {'appointments': appointments})
 
+@login_required
 def appointment_update(request, id):
     appointment = get_object_or_404(Appointment, pk=id)
     if request.method == 'POST':
-        form = AppointmentForm(request.POST, instance=appointment)
+        form = AppointmentForm(request.POST or None, instance=appointment)
         if form.is_valid():
             form.save()
             messages.success(request, 'Appointment updated successfully')
@@ -194,15 +209,17 @@ def appointment_update(request, id):
         form = AppointmentForm(instance=appointment)
     return render(request, 'appointment_update.html', {'form': form})
 
+@login_required
 def delete_appointment(request, id):
     appointment = get_object_or_404(Appointment, pk=id)
     appointment.delete()
     messages.success(request, 'Appointment deleted successfully')
     return redirect('appointment_list')
 
+@login_required
 def medical(request):
     if request.method == 'POST':
-        form = MedicalRecordForm(request.POST)
+        form = MedicalRecordForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'Medical record added successfully')
@@ -211,14 +228,16 @@ def medical(request):
         form = MedicalRecordForm()
     return render(request, 'medical_add.html', {'form': form})
 
+@login_required
 def medical_list(request):
     medical_records = MedicalRecord.objects.all()
     return render(request, 'medical_list.html', {'medical_records': medical_records})
 
+@login_required
 def medical_update(request, id):
     medical_record = get_object_or_404(MedicalRecord, pk=id)
     if request.method == 'POST':
-        form = MedicalRecordForm(request.POST, instance=medical_record)
+        form = MedicalRecordForm(request.POST or None, instance=medical_record)
         if form.is_valid():
             form.save()
             messages.success(request, 'Medical record updated successfully')
@@ -227,15 +246,17 @@ def medical_update(request, id):
         form = MedicalRecordForm(instance=medical_record)
     return render(request, 'medical_update.html', {'form': form})
 
+@login_required
 def delete_medical(request, id):
     medical_record = get_object_or_404(MedicalRecord, pk=id)
     medical_record.delete()
     messages.success(request, 'Medical record deleted successfully')
     return redirect('medical_list')
 
+@login_required
 def bill(request):
     if request.method == 'POST':
-        form = BillingForm(request.POST)
+        form = BillingForm(request.POST or None)
         if form.is_valid():
             form.save()
             messages.success(request, 'Bill added successfully')
@@ -244,6 +265,27 @@ def bill(request):
         form = BillingForm()
     return render(request, 'bill_add.html', {'form': form})
 
+@login_required
 def bill_list(request):
     bills = Billing.objects.all()
     return render(request, 'bill_list.html', {'bills': bills})
+
+@login_required
+def bill_update(request, id):
+    bill = get_object_or_404(Billing, pk=id)
+    if request.method == 'POST':
+        form = BillingForm(request.POST or None, instance=bill)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Bill updated successfully')
+            return redirect('bill_list')
+    else:
+        form = BillingForm(instance=bill)
+    return render(request, 'bill_update.html', {'form': form})
+
+@login_required
+def bill_delete(request, id):
+    bill = get_object_or_404(Billing, pk=id)
+    bill.delete()
+    messages.success(request, 'Bill deleted successfully')
+    return redirect('bill_list')
