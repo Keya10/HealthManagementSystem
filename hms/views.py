@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from datetime import datetime, timedelta
 from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
@@ -29,10 +29,19 @@ def dashboard(request):
     total_doctors = Doctor.objects.count()
     total_nurses = Nurse.objects.count()
     total_appointments = Appointment.objects.count()
+    
+    # Count appointments by status
+    status_counts = Appointment.objects.values('status').annotate(count=Count('status'))
+    status_counts_dict = {item['status']: item['count'] for item in status_counts}
+    # Get counts for each status (default to 0 if no appointments exist for a status)
+    pending_count = status_counts_dict.get('pending', 0)
+    approved_count = status_counts_dict.get('approved', 0)
+    completed_count = status_counts_dict.get('completed', 0)
+
     total_revenue = Billing.objects.aggregate(total=Sum('amount'))['total'] or 0
     pending_bills = Billing.objects.filter(payment_status='Pending').count()
 
-    patients_registration_data = []
+    patients_registration_data = [total_patients]
     patients_registration_labels = []
     for i in range(6, -1, -1):
         date = datetime.today() - timedelta(days=i)
@@ -40,7 +49,7 @@ def dashboard(request):
         patients_registration_data.append(count)
         patients_registration_labels.append(date.strftime('%a'))
 
-    appointment_data = [10, 20, 30, 40, 50, 60, 70]  # Replace with actual data
+    appointment_data = [pending_count, approved_count, completed_count]  # Replace with actual data
     appointment_labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']  # Replace with actual labels
 
     billing_labels = ['Paid', 'Pending']
@@ -51,7 +60,12 @@ def dashboard(request):
 
     context = {
         'total_patients': total_patients,
+        'total_doctors': total_doctors,
+        'total_nurses': total_nurses,
         'total_appointments': total_appointments,
+        'pending_count': pending_count,
+        'approved_count': approved_count,
+        'completed_count': completed_count,
         'total_revenue': total_revenue,
         'pending_bills': pending_bills,
         'patients_registration_data': patients_registration_data,
@@ -191,9 +205,14 @@ def appointment(request):
         form = AppointmentForm()
     return render(request, 'appointment_add.html', {'form': form})
 
+
 @login_required
 def appointment_list(request):
-    appointments = Appointment.objects.all()
+    query = request.GET.get('q')
+    if query:
+        appointments = Appointment.objects.filter(patient__icontains=query)
+    else:
+        appointments = Appointment.objects.all()
     return render(request, 'appointment_list.html', {'appointments': appointments})
 
 @login_required

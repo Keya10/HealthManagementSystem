@@ -95,7 +95,7 @@
                     <h6 class="m-0 font-weight-bold text-primary">Patient Registrations</h6>
                 </div>
                 <div class="card-body">
-                    <canvas id="patientRegistrationsChart"></canvas>
+                    <canvas id="patientRegistrationChart"></canvas>
                 </div>
             </div>
         </div>
@@ -107,7 +107,27 @@
                     <h6 class="m-0 font-weight-bold text-success">Appointments</h6>
                 </div>
                 <div class="card-body">
-                    <canvas id="appointmentsChart"></canvas>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="status-card pending">
+                                <h5>Pending</h5>
+                                <p class="display-4">{{ pending_count }}</p>
+                            </div>
+
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-card approved">
+                                <h5>Approved</h5>
+                                <p class="display-4">{{ approved_count }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="status-card completed">
+                                <h5>Completed</h5>
+                                <p class="display-4">{{ completed_count }}</p>
+                            </div>
+                        </div>
+
                 </div>
             </div>
         </div>
@@ -121,7 +141,10 @@
                     <h6 class="m-0 font-weight-bold text-info">Billing Overview</h6>
                 </div>
                 <div class="card-body">
-                    <canvas id="billingChart"></canvas>
+                    <canvas id="billingStatusChart"></canvas>
+                    {{ billing_labels }}
+                    {{ billing_data }}
+                    {{ appointment_data }}
                 </div>
             </div>
         </div>
@@ -131,21 +154,26 @@
 <script type="module" src="acquisitions.js"></script>
 
 <!-- Chart.js Scripts -->
+
 <script>
-    // Patient Registrations Chart
-    const patientRegistrationsChart = new Chart(document.getElementById('patientRegistrationsChart'), {
+    // Patient Registration Trends (Line Chart)
+    const patientRegistrationCtx = document.getElementById('patientRegistrationChart').getContext('2d');
+    const patientRegistrationChart = new Chart(patientRegistrationCtx, {
         type: 'line',
         data: {
-            labels: {{ patient_registration_labels|safe }},
+            labels: {{ patients_registration_labels|safe }},
             datasets: [{
-                label: 'Patient Registrations',
-                data: {{ patient_registration_data|safe }},
-                backgroundColor: 'rgba(78, 115, 223, 0.05)',
-                borderColor: 'rgba(78, 115, 223, 1)',
-                borderWidth: 2
+                label: 'Patients Registered',
+                data: {{ patients_registration_data|safe }},
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderWidth: 2,
+                fill: true,
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true
@@ -154,20 +182,31 @@
         }
     });
 
-    // Appointments Chart
-    const appointmentsChart = new Chart(document.getElementById('appointmentsChart'), {
+    // Appointment Status Distribution (Bar Chart)
+    const appointmentStatusCtx = document.getElementById('appointmentStatusChart').getContext('2d');
+    const appointmentStatusChart = new Chart(appointmentStatusCtx, {
         type: 'bar',
         data: {
-            labels: {{ appointment_labels|safe }},
+            labels: ['Pending', 'Approved', 'Completed'],
             datasets: [{
                 label: 'Appointments',
-                data: {{ appointment_data|safe }},
-                backgroundColor: 'rgba(28, 200, 138, 0.5)',
-                borderColor: 'rgba(28, 200, 138, 1)',
-                borderWidth: 2
+                data: [{{ pending_count }}, {{ approved_count }}, {{ completed_count }}],
+                backgroundColor: [
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 1
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 y: {
                     beginAtZero: true
@@ -176,27 +215,34 @@
         }
     });
 
-    // Billing Chart
-    const billingChart = new Chart(document.getElementById('billingChart'), {
+    // Billing Status (Pie Chart)
+    const billingStatusCtx = document.getElementById('billingStatusChart').getContext('2d');
+    const billingStatusChart = new Chart(billingStatusCtx, {
         type: 'pie',
         data: {
             labels: {{ billing_labels|safe }},
             datasets: [{
-                label: 'Billing',
+                label: 'Billing Status',
                 data: {{ billing_data|safe }},
                 backgroundColor: [
-                    'rgba(54, 162, 235, 0.5)',
-                    'rgba(255, 99, 132, 0.5)',
-                    'rgba(75, 192, 192, 0.5)'
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
                 ],
                 borderColor: [
                     'rgba(54, 162, 235, 1)',
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(75, 192, 192, 1)'
+                    'rgba(255, 99, 132, 1)'
                 ],
-                borderWidth: 2
+                borderWidth: 1
             }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
         }
     });
 </script>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}
