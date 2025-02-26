@@ -1,4 +1,4 @@
-
+# Hi, I'm Codeholic! 👋
 #  Health Management System
 
 The Health Management System (HMS) is a web-based application builed usind django framework designed to streamline healthcare operations in Kenya. The system will enable hospitals, clinics, and medical practitioners to manage patient records, appointments, billing, prescriptions, and reporting efficiently.
@@ -35,6 +35,7 @@ The Health Management System (HMS) is a web-based application builed usind djang
 - Deployment: Django's built-in development server (can be deployed on platforms like AWS, Heroku, etc.)
 
 ## Setup Instructions
+## Prefered Code ediditor vscode 
 1. Install Python: Make sure Python is installed on your system. You can download it from python.org and follow the installation instructions.
 2. Create a Virtual Environment: It's recommended to use a virtual environment to manage dependencies for your Django project.
 ```
@@ -57,14 +58,19 @@ source venv/bin/activate
 ```
 4. Clone and Setup Your Project:
 ```
- # https://github.com/Keya10/HEALTH-MANAGEMENT-SYSTEM.git
+ git clone https://github.com/Keya10/HealthManagementSystem.git
  cd HealthManagementSystem
  ```
- 5. Create a Superuser
+5. Install Dependencies from requirements.txt
+```
+pip install -r requirements.txt
+```
+
+ 6. Create a Superuser
  ``` 
  python manage.py createsuperuser
  ```
- 6. Run Development server
+ 7. Run Development server
  ``` 
  python mange.py runserver
  ```
@@ -77,3 +83,7 @@ source venv/bin/activate
 
 ![image2](https://github.com/user-attachments/assets/63c83fd7-9fb3-4de1-b19c-55c16c0117e9)
 ![image3](https://github.com/user-attachments/assets/de478e73-3d8c-473a-8fd5-1645ab03ed56)
+
+## 🚀 About Me
+I'm a full stack developer...
+ passionate about creating robust, scalable applications from the ground up. I thrive on turning complex problems into solutions.
