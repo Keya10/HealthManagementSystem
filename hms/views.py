@@ -1,24 +1,29 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages 
+from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Sum
 from datetime import datetime, timedelta
-from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm, RegistrationForm
+from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
 from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
+from django.contrib.auth.decorators import login_required
 
-
-#login view
+# login view
 def login_view(request):
-
     return render(request, 'registration/login.html')
 
-def authview(request):
-    form = UserCreationForm
-    
-
-    return render(request,'registration/signup.html', {"form" : form})
+def register(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Registration successful')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {"form": form})
 
 # Dashboard view
+@login_required
 def dashboard(request):
     total_patients = Patient.objects.count()
     total_doctors = Doctor.objects.count()

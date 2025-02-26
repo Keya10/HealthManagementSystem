@@ -2,12 +2,12 @@ from django.conf import settings
 from django.contrib.auth import views 
 from django.urls import path, include
 from . import views 
-from .views import authview
+from .views import register
 
 
 urlpatterns = [ 
     
-    path("signup", views.authview, name="authview"),
+    path("signup", views.register, name="register"),
     path("accounts/", include("django.contrib.auth.urls")),
     
     path("", views.home, name="home"),
