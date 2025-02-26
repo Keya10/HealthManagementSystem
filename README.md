@@ -69,11 +69,11 @@ source venv/bin/activate
  python mange.py runserver
  ```
  
-![dashboard](dashboard.png)
-![Image 1](1.png)
-![Image 2](2.png)
-![Image 3](3.png)
+## dashboard
+![dashboard](https://github.com/user-attachments/assets/415a2a03-93a4-41a8-ad98-21f64dd06345)
+
+![image1](https://github.com/user-attachments/assets/06f98041-8b61-4efb-888a-f3ed8fce0111)
+![image2](https://github.com/user-attachments/assets/b2246122-4a6a-4c01-99f1-5669d38c16c4)
 
 
-
-
+![image3](https://github.com/user-attachments/assets/293b5cd8-5bc2-491f-aa15-f7fe58d624d2)
