@@ -41,7 +41,7 @@ def dashboard(request):
     total_revenue = Billing.objects.aggregate(total=Sum('amount'))['total'] or 0
     pending_bills = Billing.objects.filter(payment_status='Pending').count()
 
-    patients_registration_data = [total_patients]
+    patients_registration_data = []
     patients_registration_labels = []
     for i in range(6, -1, -1):
         date = datetime.today() - timedelta(days=i)
