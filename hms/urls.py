@@ -49,6 +49,8 @@ urlpatterns = [
     path("bill/update/<int:id>", views.bill_update, name="bill_update"),
     path("bill/delete/<int:id>", views.bill_delete, name="bill_delete"),
 
+    path("reports", views.report, name="report"),
+
     
 
 ]

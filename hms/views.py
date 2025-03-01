@@ -4,12 +4,37 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Sum, Count
 from datetime import datetime, timedelta
 from .forms import PatientForm, DoctorForm, NurseForm, AppointmentForm, MedicalRecordForm, BillingForm
-from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing
+from .models import Patient, Doctor, Nurse, Appointment, MedicalRecord, Billing, Department, Specialization
 from django.contrib.auth.decorators import login_required
 
 # login view
 def login_view(request):
     return render(request, 'registration/login.html')
+
+
+def report(request):
+    #fetching data from the database
+    patients = Patient.objects.all()
+    doctors = Doctor.objects.all()
+    nurses = Nurse.objects.all()
+    appointments = Appointment.objects.all()
+    medical_records = MedicalRecord.objects.all()
+    bills = Billing.objects.all()
+    departsments = Department.objects.all()
+    specializations = Specialization.objects.all()
+    #passing data to the report.html file
+    context = {
+        'patients': patients,
+        'doctors': doctors,
+        'nurses': nurses,
+        'appointments': appointments,
+        'medical_records': medical_records,
+        'bills': bills,
+        'departsments': departsments,
+        'specializations': specializations,
+    }
+
+    return render(request, 'report.html', context)
 
 def register(request):
     if request.method == "POST":

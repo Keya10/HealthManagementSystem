@@ -44,6 +44,10 @@
         }
         .navbar {
             background-color: #007bff; /* Primary blue color */
+            position: flex;
+            width: 100%;
+            z-index: 1000;
+
         }
         .navbar-brand, .nav-link {
             color: #fff !important; /* White text */
@@ -67,6 +71,13 @@
             background-color: #343a40; /* Dark background */
             color: #fff;
             transition: all 0.3s;
+            overflow: auto;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            height: 100%;
+            
+           
         }
         #sidebar .sidebar-header {
             padding: 20px;
@@ -100,6 +111,7 @@
         #wrapper.toggled #sidebar {
             margin-left: -250px;
         }
+        
     </style>
 </head>
 <body>
